@@ -7,7 +7,11 @@ VL6180XSensor::VL6180XSensor() : PollingComponent(15000) {}
 
 void VL6180XSensor::setup() {
     ESP_LOGCONFIG(TAG_VL6180X, "Setting up VL6180XSensor...");
-    vl.begin();
+    if (vl.begin()) {
+        ESP_LOGCONFIG(TAG_VL6180X, "VL6180XSensor setup complete.");
+    } else {
+        ESP_LOGE(TAG_VL6180X, "Could not communicate with VL6180X sensor.");
+    }
     ESP_LOGCONFIG("  ", "Luminance", this->luminance_sensor_);
     ESP_LOGCONFIG("  ", "Distance", this->distance_sensor_);
     this->gain_ = VL6180X_ALS_GAIN_1;
@@ -20,6 +24,8 @@ void VL6180XSensor::update() {
 
     uint8_t range = vl.readRange();
     uint8_t status = vl.readRangeStatus();
+
+    ESP_LOGCONFIG("measured range and status", "Range: %i, Status: %i", range, status);
 
     if (status == VL6180X_ERROR_NONE) {
     ESP_LOGD(TAG_VL6180X, "Range measured: %i", range);
