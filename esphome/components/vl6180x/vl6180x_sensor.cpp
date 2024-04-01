@@ -37,6 +37,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(range);
         }
+        return;
     }
 
     // Log any errors.
@@ -49,6 +50,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
     else if (status == VL6180X_ERROR_NOCONVERGE) {
         ESP_LOGW(TAG_VL6180X, "No convergence");
@@ -56,6 +58,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
     else if (status == VL6180X_ERROR_RANGEIGNORE) {
         ESP_LOGW(TAG_VL6180X, "Ignoring range");
@@ -63,6 +66,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
     else if (status == VL6180X_ERROR_SNR) {
         ESP_LOGW(TAG_VL6180X, "Signal/Noise error");
@@ -70,6 +74,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
     else if (status == VL6180X_ERROR_RAWUFLOW) {
         ESP_LOGW(TAG_VL6180X, "Raw reading underflow");
@@ -77,6 +82,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
     else if (status == VL6180X_ERROR_RAWOFLOW) {
         ESP_LOGW(TAG_VL6180X, "Raw reading overflow");
@@ -84,6 +90,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
     else if (status == VL6180X_ERROR_RANGEUFLOW) {
         ESP_LOGW(TAG_VL6180X, "Range reading underflow");
@@ -91,6 +98,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
     else if (status == VL6180X_ERROR_RANGEOFLOW) {
         ESP_LOGW(TAG_VL6180X, "Range reading overflow");
@@ -98,6 +106,7 @@ void VL6180XSensor::update() {
         {
             this->distance_sensor_->publish_state(NAN);
         }
+        return;
     }
 }
 
