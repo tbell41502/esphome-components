@@ -23,9 +23,10 @@ void VL6180XSensor::update() {
     this->luminance_sensor_->publish_state(luminance);
 
     uint8_t range = vl.readRange();
+    ESP_LOGCONFIG("measured range: %i", range);
     uint8_t status = vl.readRangeStatus();
 
-    ESP_LOGCONFIG("measured range and status", "Range: %i, Status: %i", range, status);
+    ESP_LOGCONFIG("meaasured Status: %i", status);
 
     if (status == VL6180X_ERROR_NONE) {
     ESP_LOGD(TAG_VL6180X, "Range measured: %i", range);
