@@ -26,10 +26,10 @@ void VL6180XSensor::update() {
     }
 
     uint8_t range = vl.readRange();
-    ESP_LOGCONFIG("measured range: %i", range);
+    //ESP_LOGD(TAG_VL6180X, "measured range: %i", range);
     uint8_t status = vl.readRangeStatus();
 
-    ESP_LOGCONFIG("meaasured Status: %i", status);
+    //ESP_LOGD(TAG_VL6180X, "meaasured Status: %i", status);
 
     if (status == VL6180X_ERROR_NONE) {
         ESP_LOGD(TAG_VL6180X, "Range measured: %i", range);
