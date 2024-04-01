@@ -20,7 +20,10 @@ void VL6180XSensor::setup() {
 void VL6180XSensor::update() {
     float luminance = vl.readLux(this->gain_);
     ESP_LOGD(TAG_VL6180X, "Luminance measured: %f", luminance);
-    this->luminance_sensor_->publish_state(luminance);
+    if (this->luminance_sensor_ != nullptr)
+    {
+        this->luminance_sensor_->publish_state(luminance);
+    }
 
     uint8_t range = vl.readRange();
     ESP_LOGCONFIG("measured range: %i", range);
@@ -29,45 +32,72 @@ void VL6180XSensor::update() {
     ESP_LOGCONFIG("meaasured Status: %i", status);
 
     if (status == VL6180X_ERROR_NONE) {
-    ESP_LOGD(TAG_VL6180X, "Range measured: %i", range);
-    this->distance_sensor_->publish_state(range);
+        ESP_LOGD(TAG_VL6180X, "Range measured: %i", range);
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
 
     // Log any errors.
     if  ((status >= VL6180X_ERROR_SYSERR_1) && (status <= VL6180X_ERROR_SYSERR_5)) {
-    ESP_LOGE(TAG_VL6180X, "System error");
+        ESP_LOGE(TAG_VL6180X, "System error");
     }
     else if (status == VL6180X_ERROR_ECEFAIL) {
-    ESP_LOGW(TAG_VL6180X, "ECE failure");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "ECE failure");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
     else if (status == VL6180X_ERROR_NOCONVERGE) {
-    ESP_LOGW(TAG_VL6180X, "No convergence");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "No convergence");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
     else if (status == VL6180X_ERROR_RANGEIGNORE) {
-    ESP_LOGW(TAG_VL6180X, "Ignoring range");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "Ignoring range");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
     else if (status == VL6180X_ERROR_SNR) {
-    ESP_LOGW(TAG_VL6180X, "Signal/Noise error");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "Signal/Noise error");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
     else if (status == VL6180X_ERROR_RAWUFLOW) {
-    ESP_LOGW(TAG_VL6180X, "Raw reading underflow");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "Raw reading underflow");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
     else if (status == VL6180X_ERROR_RAWOFLOW) {
-    ESP_LOGW(TAG_VL6180X, "Raw reading overflow");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "Raw reading overflow");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
     else if (status == VL6180X_ERROR_RANGEUFLOW) {
-    ESP_LOGW(TAG_VL6180X, "Range reading underflow");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "Range reading underflow");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
     else if (status == VL6180X_ERROR_RANGEOFLOW) {
-    ESP_LOGW(TAG_VL6180X, "Range reading overflow");
-    this->distance_sensor_->publish_state(NAN);
+        ESP_LOGW(TAG_VL6180X, "Range reading overflow");
+        if (this->distance_sensor_ != nullptr)
+        {
+            this->distance_sensor_->publish_state(range);
+        }
     }
 }
 
