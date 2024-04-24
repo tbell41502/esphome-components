@@ -74,6 +74,14 @@ To integrate the VL6180X sensor into your ESPHome setup, follow these steps:
    - Add the sensor configuration to your device's YAML file. An example configuration is provided below:
 
 ```yaml
+external_components:
+- source:
+    type: git
+    url: https://github.com/tbell41502/esphome-components
+    ref: main
+  components: [ vl6180x ]
+  refresh: 1min
+
 sensor:
   - platform: vl6180x
     update_interval: 30s
