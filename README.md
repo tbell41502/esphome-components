@@ -36,6 +36,8 @@ The implementation file for the ESPHome custom component that interacts with the
 - **State Publishing**: Handles the publishing of sensor data to Home Assistant, ensuring that the state is updated accurately and timely in response to changes in sensor readings.
 
 ### **sensor.py**:
+
+#### Overview
 This Python file is part of an ESPHome custom component setup, specifically designed to interface with the VL6180X sensor, a device capable of measuring both distance and illuminance. Below is a detailed breakdown of the file's contents and its functionalities.
 - `esphome.codegen` and `esphome.config_validation`: Used for generating code and validating the configuration entries.
 - `esphome.components.i2c` and `esphome.components.sensor`: Enable the component to use I2C communication and sensor functionalities within ESPHome.
